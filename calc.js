@@ -1,4 +1,4 @@
-
+//mathematical functions
 
 function add(a, b){
     return a+b;
@@ -35,6 +35,7 @@ const display_content = document.createElement('span');
 const off = document.getElementById('off');
 const percent = document.getElementById('percent');
 const negative = document.getElementById('negative');
+const dot = document.getElementById('dot');
 display_content.textContent = '0';
 display.appendChild(display_content);
 
@@ -56,12 +57,10 @@ console.log(null == false);
 
 document.addEventListener('DOMContentLoaded', function(){
 
-    // find a way to have a number that is the number after all the operation but display is always the number currently been entered
-    //figure how do we get second number completely before we operate
+
     numbers.forEach((number)=>{number.addEventListener('click', function(){
         accumulator+=number.textContent;
         display_content.textContent = accumulator;
-        if(operator_status!='none') removeSelectClass();
         console.log(`accumulator = ${accumulator}`);
     })});
     
@@ -115,10 +114,9 @@ document.addEventListener('DOMContentLoaded', function(){
                 result = divide(firstNum, SecondNum);
         }
     
-        firstNum = result;
-        console.log(`result: ${result}`);
-        console.log(`firstNum after operation: ${firstNum}`);
-        display_content.textContent = `${firstNum}`;
+        accumulator = result;
+        firstNum = Number(accumulator);
+        display_content.textContent = accumulator;
         accumulator = '';
     }
     
@@ -127,7 +125,6 @@ document.addEventListener('DOMContentLoaded', function(){
         display_content.textContent = '0';
         firstNum = null;
         SecondNum = null;
-        operator_status = 'none';
         accumulator = '';
         currentOperator = undefined;
         previousOperator = undefined;
@@ -138,7 +135,6 @@ document.addEventListener('DOMContentLoaded', function(){
         display_content.textContent = '';
         firstNum = null;
         SecondNum = null;
-        operator_status = 'none';
         accumulator = '';
         currentOperator = undefined;
         previousOperator = undefined;
@@ -146,17 +142,22 @@ document.addEventListener('DOMContentLoaded', function(){
     })
 
     negative.addEventListener('click', ()=>{
-        if(display_content.textContent != 0 && display_content.textContent){
-            display_content.textContent = '-' +  display_content.textContent;
+        if(accumulator!=''){
+            if(accumulator.charAt(0) == '-') accumulator = accumulator.slice(1);
+            else accumulator = '-' + accumulator;
+
+            display_content.textContent = accumulator;
         }
-        if(firstNum == Number(display_content.textContent)) firstNum = (-firstNum);
-        else if(SecondNum == Number(display_content.textContent)) SecondNum = (-SecondNum);
     })
-        
+
+    percent.addEventListener('click', ()=>{
+        if(accumulator != '') accumulator = Number(accumulator)/100;
+        display_content.textContent = accumulator;
+    })
+
+    dot.addEventListener('click', ()=>{
+        if(accumulator == '' || accumulator.charAt(0) != '.') accumulator += '.';
+        display_content.textContent = accumulator;
+    })
+
 })
-
-// styling
-
-
-
-
