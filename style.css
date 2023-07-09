@@ -49,6 +49,7 @@ body{
     background-color: lavenderblush;
     border-top: #000 solid 3px;
     flex: 0 1 1;
+    box-shadow: 3px 3px 10px #000;
 }
 
 #display{
@@ -179,7 +180,7 @@ span{
 .operator-section .uppr-container{
     display: flex;
     flex-wrap: wrap;
-    margin-bottom: -10%;
+    margin-bottom: -7%;
 }
 
 .operator-section .plus-minus{
